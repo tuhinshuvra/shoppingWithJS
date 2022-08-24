@@ -1,51 +1,50 @@
 
+function productDisplay(cartedArray) {
 
+    const htmlTag = document.getElementById('product-list');
 
-
-function cartProductDiplay(cartProduct) {
-    const tableBody = document.getElementById('product-list');
-    tableBody.innerHTML = null
-    let totalCost = 0;
-    for (let i = 0; i < cartProduct.length; i++) {
-        const productName = cartArray[i].productName;
-        const productPrice = cartArray[i].productPrice;
-
-
-        const productTr = document.createElement('tr');
-        productTr.innerHTML = `
-        <th>${i + 1}</th>
-        <td>${productName}</td>
-        <td>${productPrice}</td>`
-
-        tableBody.appendChild(productTr);
+    htmlTag.innerHTML = null;
+    let totalCost = 0
+    for (let i = 0; i < cartedArray.length; i++) {
+        productName = cartedArray[i].productName;
+        productPrice = cartedArray[i].productPrice;
 
         totalCost = totalCost + parseInt(productPrice);
-    }
 
-    const totalCostTr = document.createElement('tr');
-    totalCostTr.innerHTML = `
-    <td> Total Cost: </td>
-    <td></td>
-    <td> ${totalCost}</td>
-    `
-    tableBody.appendChild(totalCostTr);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${productName}</td>
+        <td>${productPrice}</td>
+        `
+        htmlTag.appendChild(tr);
+    }
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+        <td>Total Cost</td>
+        <td></td>
+        <td>${totalCost}</td>
+        `
+    htmlTag.appendChild(tr);
+
 }
 
-const cartArray = [];
+
+
+const cartedArray = [];
 function addItem(element) {
     const productName = element.parentNode.parentNode.children[0].innerText;
     const productPrice = element.parentNode.parentNode.children[1].children[0].innerText;
+    // console.log(productName, productPrice);
 
     const productObj = {
         productName: productName,
-        productPrice: productPrice
+        productPrice: productPrice,
     }
-    cartArray.push(productObj)
-    console.log(cartArray);
-    const arryLength = cartArray.length;
+    // console.log(productObj);
 
-    const addedProductNo = document.getElementById('added-product');
-    addedProductNo.innerText = arryLength;
+    cartedArray.push(productObj);
+    // console.log(cartedArray);
 
-    cartProductDiplay(cartArray);
+    productDisplay(cartedArray);
 }
